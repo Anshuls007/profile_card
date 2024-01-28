@@ -28,20 +28,25 @@ body {
 .div1 {
   display: flex;
   flex-direction: column;
-  width: 100px;
+  width: 120px;
   justify-content: center;
   align-items: center;
-  margin-right: 15px;
   color: pink;
   font-size: small;
+  font-family:'Courier New', Courier, monospace;
+  font-weight: 800;
 }
 
 .div2 {
-  margin-left: 2px;
-  width: 250px;
-  color: wheat;
+  margin-top: 4px;
+  width: 260px;
+  color: white;
 }
 .card-image {
   width: 80px;
   height: 80px;
+}
+
+.card-description{
+  color: wheat;
 }
