@@ -6,10 +6,18 @@ body {
 }
 #container {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#main{
+  display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: row ;
   justify-content: center;
 }
+
 .yourDesiredId {
   border: 2px solid;
   background: rgba(255, 255, 255, 0.15);
@@ -49,4 +57,11 @@ body {
 
 .card-description{
   color: wheat;
+}
+
+.search-bar{
+  width: 400px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
 }
