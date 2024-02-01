@@ -63,14 +63,10 @@ centeredDiv.appendChild(search);
 centeredDiv.appendChild(main);
 
 
-function profileCardById() {
+function displayProfileCard(artistList) {
 
   main.innerHTML = '';
-  let artistid = search.value;
-  artistsData.map((items) => {
-    const Name = items.name.toLowerCase();
-    if (Name.includes(artistid)) {
-    console.log(items.name); 
+  artistList.map((items) => {
     const cardDiv = document.createElement("div");
     cardDiv.className = "yourDesiredId";
 
@@ -124,72 +120,15 @@ function profileCardById() {
 
     cardDiv.appendChild(cardDiv2);
     main.appendChild(cardDiv);
-    }
   });
 }
-function profileCards() {
+displayProfileCard(artistsData)
 
-  main.innerHTML = '';
-  artistsData.map((items) => {
-    const cardDiv = document.createElement("div");
-    cardDiv.className = "yourDesiredId";
-
-    const cardDiv1 = document.createElement("div");
-    cardDiv1.className = "div1";
-
-    const cardDiv2 = document.createElement("div");
-    cardDiv2.className = "div2";
-
-    const profile =
-      items.profile ||
-      "https://cdn.iconscout.com/icon/premium/png-256-thumb/singer-37-1174640.png?f=webp";
-    const profileImage = document.createElement("img");
-    profileImage.className = "card-image";
-    profileImage.src = profile;
-    cardDiv1.appendChild(profileImage);
-
-    const artistName = document.createElement("p");
-    const nameData = document.createTextNode(`${items.name}`);
-    artistName.className = "card-name";
-    artistName.appendChild(nameData);
-    cardDiv1.appendChild(artistName);
-
-    cardDiv.appendChild(cardDiv1);
-
-    const artistdescription = document.createElement("i");
-    const descriptionData = document.createTextNode(`"${items.description}"`);
-    artistdescription.className = "card-description";
-    artistdescription.appendChild(descriptionData);
-    cardDiv2.appendChild(artistdescription);
-
-    const artistBirth = document.createElement("p");
-    const birthData = document.createTextNode(`BirthYear: ${items.birthYear}`);
-    artistBirth.appendChild(birthData);
-    cardDiv2.appendChild(artistBirth);
-
-    const artistCountry = document.createElement("p");
-    const countryData = document.createTextNode(`Country: ${items.country}`);
-    artistCountry.appendChild(countryData);
-    cardDiv2.appendChild(artistCountry);
-
-    const artistGenres = document.createElement("p");
-    const genresData = document.createTextNode(`Genres: ${items.genres}`);
-    artistGenres.appendChild(genresData);
-    cardDiv2.appendChild(artistGenres);
-
-    const artistHitSongs = document.createElement("p");
-    const hitSongsData = document.createTextNode(`hitSongs: ${items.hitSongs}`);
-    artistHitSongs.appendChild(hitSongsData);
-    cardDiv2.appendChild(artistHitSongs);
-
-    cardDiv.appendChild(cardDiv2);
-    main.appendChild(cardDiv);
-    
-  });
+function getArtistById(artistName) {
+  const artistList = artistsData.filter(artist => artist.name.toLowerCase().includes(artistName));
+  displayProfileCard(artistList);
 }
-profileCards();
-search.addEventListener('input', function(){
-  let artistid = search.value;
-  console.log(artistid.length,"this")
-  artistid.length === 0 ? profileCards() : profileCardById();
+search.addEventListener('input', function () {
+  let artistId = search.value;
+  artistId.length === 0 ? displayProfileCard(artistsData) : getArtistById(artistId.toLowerCase());
 });

@@ -4,6 +4,7 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+
 #container {
   display: flex;
   flex-direction: column;
@@ -11,16 +12,16 @@ body {
   align-items: center;
 }
 
-#main{
+#main {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row ;
+  flex-direction: row;
   justify-content: center;
 }
 
 .yourDesiredId {
   border: 2px solid;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(9px);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.075);
@@ -39,27 +40,34 @@ body {
   width: 120px;
   justify-content: center;
   align-items: center;
-  color: pink;
+  color: pink !important;
   font-size: small;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-weight: 800;
+}
+
+p {
+  text-shadow: 0.5px 0.5px #777;
+  font-weight: 500;
+  font-family: cursive;
 }
 
 .div2 {
   margin-top: 4px;
   width: 260px;
-  color: white;
+  color: #ede7e3;
 }
+
 .card-image {
   width: 80px;
   height: 80px;
 }
 
-.card-description{
+.card-description {
   color: wheat;
 }
 
-.search-bar{
+.search-bar {
   width: 400px;
   height: 30px;
   border: none;
