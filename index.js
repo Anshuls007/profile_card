@@ -68,7 +68,7 @@ function displayProfileCard(artistList) {
   main.innerHTML = '';
   artistList.map((items) => {
     const cardDiv = document.createElement("div");
-    cardDiv.className = "yourDesiredId";
+    cardDiv.className = "card-container";
 
     const cardDiv1 = document.createElement("div");
     cardDiv1.className = "div1";
@@ -136,8 +136,6 @@ function debounce(func, timeout = 800) {
     }, timeout);
   };
 }
-
-
 const debouncedSearch = debounce(function () {
   let artistId = search.value;
   artistId.length === 0 ? displayProfileCard(artistsData) : getArtistById(artistId.toLowerCase());
