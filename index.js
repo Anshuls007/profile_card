@@ -68,7 +68,7 @@ function displayProfileCard(artistList) {
   main.innerHTML = '';
   artistList.map((items) => {
     const cardDiv = document.createElement("div");
-    cardDiv.className = "yourDesiredId";
+    cardDiv.className = "card-container";
 
     const cardDiv1 = document.createElement("div");
     cardDiv1.className = "div1";
@@ -122,13 +122,24 @@ function displayProfileCard(artistList) {
     main.appendChild(cardDiv);
   });
 }
-displayProfileCard(artistsData)
-
 function getArtistById(artistName) {
   const artistList = artistsData.filter(artist => artist.name.toLowerCase().includes(artistName));
   displayProfileCard(artistList);
 }
-search.addEventListener('input', function () {
+
+function debounce(func, timeout = 800) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+const debouncedSearch = debounce(function () {
   let artistId = search.value;
   artistId.length === 0 ? displayProfileCard(artistsData) : getArtistById(artistId.toLowerCase());
 });
+
+displayProfileCard(artistsData)
+search.addEventListener('input', debouncedSearch);

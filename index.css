@@ -1,5 +1,5 @@
 body {
-  background-image: url("https://images.pexels.com/photos/808510/pexels-photo-808510.jpeg?cs=srgb&dl=pexels-muhammad-khairul-iddin-adnan-808510.jpg&fm=jpg");
+  background-image: url("https://img.freepik.com/free-photo/blue-smooth-wall-textured-background_53876-106133.jpg?w=1060&t=st=1706785349~exp=1706785949~hmac=ceafe0abfc659d6207f4759b992418b43d6ad41e202428ec14dee9ddc7016088");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -19,7 +19,7 @@ body {
   justify-content: center;
 }
 
-.yourDesiredId {
+.card-container {
   border: 2px solid;
   background: rgba(255, 255, 255, 0.1);
   -webkit-backdrop-filter: blur(9px);
