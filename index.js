@@ -55,16 +55,34 @@ const artistsData = [
 ];
 const centeredDiv = document.getElementById("container");
 const main = document.createElement("dev");
-main.id = "main"
+main.id = "main";
 
+const searchMain = document.createElement("dev");
+searchMain.className = "search-main";
 const search = document.createElement("input");
+search.placeholder = "Search Here..";
 search.className = "search-bar";
-centeredDiv.appendChild(search);
-centeredDiv.appendChild(main);
+searchMain.appendChild(search);
+centeredDiv.appendChild(searchMain);
+const searchDiv = document.createElement("div");
+searchDiv.className = "suggest-container";
 
+function searchDropDown(artistList) {
+  searchDiv.innerHTML = "";
+  if(artistList.length != 0){
+  artistList.map(artist => {
+    const searchData = document.createElement("div");
+    const artistData = document.createTextNode(artist.name);
+    searchData.appendChild(artistData);
+    searchDiv.appendChild(searchData);
+    searchData.addEventListener("click", () => displayProfileCard([artist]));
+  });
+}
+  searchMain.appendChild(searchDiv);
+}
 
 function displayProfileCard(artistList) {
-
+  searchDiv.innerHTML = "";
   main.innerHTML = '';
   artistList.map((items) => {
     const cardDiv = document.createElement("div");
@@ -123,8 +141,10 @@ function displayProfileCard(artistList) {
   });
 }
 function getArtistById(artistName) {
+  if(artistName){
   const artistList = artistsData.filter(artist => artist.name.toLowerCase().includes(artistName));
-  displayProfileCard(artistList);
+  searchDropDown(artistList);
+  }
 }
 
 function debounce(func, timeout = 800) {
@@ -137,9 +157,12 @@ function debounce(func, timeout = 800) {
   };
 }
 const debouncedSearch = debounce(function () {
-  let artistId = search.value;
-  artistId.length === 0 ? displayProfileCard(artistsData) : getArtistById(artistId.toLowerCase());
+  if(search.value != ""){
+    getArtistById(search.value);
+    }else{
+      displayProfileCard(artistsData);
+    }
 });
-
-displayProfileCard(artistsData)
-search.addEventListener('input', debouncedSearch);
+centeredDiv.appendChild(main);
+displayProfileCard(artistsData);
+search.addEventListener('input',debouncedSearch);
