@@ -69,15 +69,18 @@ searchDiv.className = "suggest-container";
 
 function searchDropDown(artistList) {
   searchDiv.innerHTML = "";
-  if(artistList.length != 0){
-  artistList.map(artist => {
-    const searchData = document.createElement("div");
-    const artistData = document.createTextNode(artist.name);
-    searchData.appendChild(artistData);
-    searchDiv.appendChild(searchData);
-    searchData.addEventListener("click", () => displayProfileCard([artist]));
-  });
-}
+  if (artistList.length != 0) {
+    artistList.map(artist => {
+      const searchData = document.createElement("div");
+      const artistData = document.createTextNode(artist.name);
+      searchData.appendChild(artistData);
+      searchDiv.appendChild(searchData);
+      searchData.addEventListener("click", () => {
+        displayProfileCard([artist]);
+        search.value = artist.name;
+      });
+    });
+  }
   searchMain.appendChild(searchDiv);
 }
 
@@ -99,7 +102,7 @@ function displayProfileCard(artistList) {
       "https://cdn.iconscout.com/icon/premium/png-256-thumb/singer-37-1174640.png?f=webp";
     const profileImage = document.createElement("img");
     profileImage.className = "card-image";
-    profileImage.src = profile;
+    profileImage.src = "https://cdn.iconscout.com/icon/premium/png-256-thumb/singer-37-1174640.png?f=webp";
     cardDiv1.appendChild(profileImage);
 
     const artistName = document.createElement("p");
@@ -140,10 +143,11 @@ function displayProfileCard(artistList) {
     main.appendChild(cardDiv);
   });
 }
-function getArtistById(artistName) {
-  if(artistName){
-  const artistList = artistsData.filter(artist => artist.name.toLowerCase().includes(artistName));
-  searchDropDown(artistList);
+function getArtistById(artist, flag = true) {
+  const artistName = artist.toLowerCase();
+  if (artistName) {
+    const artistList = artistsData.filter(artist => artist.name.toLowerCase().includes(artistName));
+    flag ? searchDropDown(artistList) : displayProfileCard(artistList);
   }
 }
 
@@ -152,17 +156,28 @@ function debounce(func, timeout = 800) {
   return (...args) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      func.apply(this, args);
+      func(...args);
     }, timeout);
   };
 }
-const debouncedSearch = debounce(function () {
-  if(search.value != ""){
-    getArtistById(search.value);
-    }else{
-      displayProfileCard(artistsData);
-    }
+
+const debouncedSearch = debounce(() => {
+  const inputValue = search.value.trim();
+  if (inputValue) {
+    getArtistById(inputValue);
+  } else {
+    displayProfileCard(artistsData);
+  }
 });
+
 centeredDiv.appendChild(main);
 displayProfileCard(artistsData);
-search.addEventListener('input',debouncedSearch);
+
+search.addEventListener('input', debouncedSearch);
+
+search.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    getArtistById(search.value, false);
+  }
+});
